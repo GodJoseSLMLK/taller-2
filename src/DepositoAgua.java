@@ -3,28 +3,20 @@ public class DepositoAgua {
     private double volumenActual;
     private DepositoAgua depositoDesborde;
 
-    // Constructor vacío: inicializa con valores seguros
     public DepositoAgua() {
-        this.capacidad = 0;
-        this.volumenActual = 0;
-        this.depositoDesborde = null;
+        this(0, 0);
     }
 
-    // Constructor con capacidad: el volumenActual inicia en 0 y depositoDesborde en null
     public DepositoAgua(double capacidad) {
-        this.capacidad = capacidad;
-        this.volumenActual = 0;
-        this.depositoDesborde = null;
+        this(capacidad, 0);
     }
 
-    // Constructor completo: recibe capacidad y volumenActual
     public DepositoAgua(double capacidad, double volumenActual) {
         this.capacidad = capacidad;
         this.volumenActual = volumenActual;
         this.depositoDesborde = null;
     }
 
-    // Getters y setters
     public double getCapacidad() {
         return capacidad;
     }
@@ -45,13 +37,10 @@ public class DepositoAgua {
         return depositoDesborde;
     }
 
-    // depositoDesborde se conecta con un setter, no por constructor,
-    // porque el objeto al que apunta se crea por separado.
     public void setDepositoDesborde(DepositoAgua depositoDesborde) {
         this.depositoDesborde = depositoDesborde;
     }
 
-    // Métodos
     public void mostrarInfo() {
         System.out.println("Capacidad: " + capacidad + " | Volumen actual: " + volumenActual);
     }
@@ -67,17 +56,23 @@ public class DepositoAgua {
         if (cantidad <= espacioDisponible) {
             volumenActual += cantidad;
             System.out.println("Se agregaron " + cantidad + " litros. Volumen actual: " + volumenActual);
-        } else {
-            double excedente = cantidad - espacioDisponible;
-            volumenActual = capacidad;
-            System.out.println("Depósito lleno. Volumen actual: " + volumenActual);
-
-            if (depositoDesborde != null) {
-                System.out.println("Desbordando " + excedente + " litros al depósito de desborde.");
-                depositoDesborde.agregarAgua(excedente);
-            } else {
-                System.out.println("Se pierden " + excedente + " litros: no hay depósito de desborde configurado.");
-            }
+            return;
         }
+
+        double excedente = cantidad - espacioDisponible;
+        volumenActual = capacidad;
+        System.out.println("Depósito lleno. Volumen actual: " + volumenActual);
+
+        if (depositoDesborde != null) {
+            System.out.println("Desbordando " + excedente + " litros al depósito de desborde.");
+            depositoDesborde.agregarAgua(excedente);
+        } else {
+            System.out.println("Se pierden " + excedente + " litros: no hay depósito de desborde configurado.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DepositoAgua{capacidad=" + capacidad + ", volumenActual=" + volumenActual + "}";
     }
 }

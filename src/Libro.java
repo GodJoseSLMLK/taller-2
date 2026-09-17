@@ -3,28 +3,20 @@ public class Libro {
     private String autor;
     private boolean disponible;
 
-    // Constructor vacío: inicializa los atributos con valores seguros
     public Libro() {
-        this.titulo = "";
-        this.autor = "";
-        this.disponible = true;
+        this("", "", true);
     }
 
-    // Constructor con título y autor: el libro queda disponible por defecto
     public Libro(String titulo, String autor) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.disponible = true;
+        this(titulo, autor, true);
     }
 
-    // Constructor completo: recibe título, autor y disponible
     public Libro(String titulo, String autor, boolean disponible) {
         this.titulo = titulo;
         this.autor = autor;
         this.disponible = disponible;
     }
 
-    // Getters y setters
     public String getTitulo() {
         return titulo;
     }
@@ -49,9 +41,8 @@ public class Libro {
         this.disponible = disponible;
     }
 
-    // Métodos
     public void mostrarInfo() {
-        System.out.println("Título: " + titulo + " | Autor: " + autor + " | Disponible: " + disponible);
+        System.out.println("Libro: " + titulo + " | Autor: " + autor + " | Disponible: " + (disponible ? "Sí" : "No"));
     }
 
     public void prestar() {
@@ -66,5 +57,10 @@ public class Libro {
     public void devolver() {
         disponible = true;
         System.out.println("El libro \"" + titulo + "\" ha sido devuelto.");
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{titulo='" + titulo + "', autor='" + autor + "', disponible=" + disponible + "}";
     }
 }
